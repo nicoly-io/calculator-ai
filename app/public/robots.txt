@@ -1,1 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /games/quiz/  # Empêche de voir les questions de quiz sur Google
+Disallow: /server/      # Sécurité pour le backend
 
+Sitemap: https://votre-domaine.com/sitemap.xml
