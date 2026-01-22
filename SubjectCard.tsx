@@ -1,1 +1,0 @@
-export default function SubjectCard() { return null; } // Logique intégrée directement dans GamesHome pour performance
