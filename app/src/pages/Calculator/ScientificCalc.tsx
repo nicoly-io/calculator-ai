@@ -1,39 +1,45 @@
-import React, { useState } from 'react';
-import { useHistory } from '../../hooks/useHistory';
-import { generateSteps } from '../../utils/mathSteps';
+import React from 'react';
+import { useCalculator } from '../../hooks/useCalculator';
+import { CalcButton } from './components/CalcButton';
+import { Display } from './components/Display';
 
 const ScientificCalc: React.FC = () => {
-  const [display, setDisplay] = useState('0');
-  const { save } = useHistory();
+  const { display, formula, handleInput, calculate, clear } = useCalculator();
 
-  const handleCalculate = () => {
-    try {
-      const result = eval(display).toString(); // Note: utiliser une librairie mathématique en prod
-      const steps = generateSteps(display);
-      save(display, result, steps);
-      setDisplay(result);
-    } catch {
-      setDisplay('Erreur');
-    }
-  };
+  const buttons = [
+    { label: 'C', action: clear, color: 'bg-red-500/20 text-red-500' },
+    { label: '(', action: () => handleInput('('), color: 'bg-white/5' },
+    { label: ')', action: () => handleInput(')'), color: 'bg-white/5' },
+    { label: '÷', action: () => handleInput('/'), color: 'bg-blue-500/20 text-blue-500' },
+    { label: '7', action: () => handleInput('7') },
+    { label: '8', action: () => handleInput('8') },
+    { label: '9', action: () => handleInput('9') },
+    { label: '×', action: () => handleInput('*'), color: 'bg-blue-500/20 text-blue-500' },
+    { label: '4', action: () => handleInput('4') },
+    { label: '5', action: () => handleInput('5') },
+    { label: '6', action: () => handleInput('6') },
+    { label: '-', action: () => handleInput('-'), color: 'bg-blue-500/20 text-blue-500' },
+    { label: '1', action: () => handleInput('1') },
+    { label: '2', action: () => handleInput('2') },
+    { label: '3', action: () => handleInput('3') },
+    { label: '+', action: () => handleInput('+'), color: 'bg-blue-500/20 text-blue-500' },
+    { label: '0', action: () => handleInput('0'), span: 2 },
+    { label: '.', action: () => handleInput('.') },
+    { label: '=', action: calculate, color: 'bg-blue-600 text-white' },
+  ];
 
   return (
-    <div className="h-full flex flex-col p-4 space-y-4">
-      <div className="bg-[#1a1a1a] p-8 rounded-3xl text-right text-5xl font-light overflow-hidden border border-white/5">
-        {display}
-      </div>
-      
-      <div className="grid grid-cols-4 gap-2 flex-1">
-        {['sin', 'cos', 'tan', 'C', '7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+'].map((btn) => (
-          <button
-            key={btn}
-            onClick={() => btn === '=' ? handleCalculate() : btn === 'C' ? setDisplay('0') : setDisplay(display === '0' ? btn : display + btn)}
-            className={`rounded-2xl text-xl font-medium transition-all active:scale-95 ${
-              btn === '=' ? 'bg-blue-600 text-white' : 'bg-white/5 hover:bg-white/10'
-            }`}
-          >
-            {btn}
-          </button>
+    <div className="flex flex-col h-full p-4 max-w-lg mx-auto">
+      <Display value={display} formula={formula} />
+      <div className="grid grid-cols-4 gap-2 mt-4 flex-1">
+        {buttons.map((btn, i) => (
+          <CalcButton 
+            key={i} 
+            label={btn.label} 
+            onClick={btn.action} 
+            color={btn.color} 
+            span={btn.span} 
+          />
         ))}
       </div>
     </div>
