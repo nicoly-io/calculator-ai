@@ -1,1 +1,17 @@
-
+{
+  "short_name": "GamertCalc",
+  "name": "Gamert Calc AI",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#121212",
+  "background_color": "#121212",
+  "orientation": "portrait"
+}
