@@ -1,1 +1,16 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './styles/index.css';
+import { ModeProvider } from './context/ModeContext';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <ModeProvider>
+      <App />
+    </ModeProvider>
+  </React.StrictMode>
+);
+
+serviceWorkerRegistration.register();
