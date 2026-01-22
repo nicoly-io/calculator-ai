@@ -13,6 +13,7 @@ import { Menu } from 'lucide-react';
 const App: React.FC = () => {
   const { activeMode, setActiveMode, isSidebarOpen, setSidebarOpen } = useMode();
 
+  // Fonction de routage interne pour changer de mode
   const renderContent = () => {
     switch (activeMode) {
       case 'sci': return <ScientificCalc />;
@@ -26,7 +27,8 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] text-white flex">
+    <div className="min-h-screen bg-[#121212] text-white flex overflow-hidden">
+      {/* Barre latérale (Sidebar) */}
       <AppSidebar 
         activeMode={activeMode} 
         setMode={setActiveMode} 
@@ -34,15 +36,21 @@ const App: React.FC = () => {
         toggle={() => setSidebarOpen(!isSidebarOpen)} 
       />
       
-      <div className="flex-1 flex flex-col">
-        <header className="p-4 flex items-center gap-4 bg-[#1a1a1a] border-b border-white/5">
-          <button onClick={() => setSidebarOpen(true)} className="p-2 hover:bg-white/10 rounded-lg">
+      {/* Contenu Principal */}
+      <div className="flex-1 flex flex-col h-screen overflow-hidden">
+        <header className="p-4 flex items-center gap-4 bg-[#1a1a1a] border-b border-white/5 shadow-md">
+          <button 
+            onClick={() => setSidebarOpen(true)} 
+            className="p-2 hover:bg-white/10 rounded-xl transition-all active:scale-90"
+          >
             <Menu size={24} />
           </button>
-          <h1 className="font-bold text-xl tracking-tight">Gamert Calc AI</h1>
+          <h1 className="font-bold text-xl tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+            Gamert Calc AI
+          </h1>
         </header>
         
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto page-transition bg-[#121212]">
           {renderContent()}
         </main>
       </div>
